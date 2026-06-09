@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Juiz Anônimo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- TELA INICIAL -->
+    <div id="title-screen" class="screen active">
+        <div class="title-container">
+            <div class="title-badge">P.A.A.M.</div>
+            <h1 class="main-title">O JUIZ<br>ANÔNIMO</h1>
+            <p class="subtitle">Programa Anônimo de Arbitragem Moral</p>
+            <div class="title-divider"></div>
+            <p class="tagline">"Você foi escolhido."</p>
+            
+            <div class="name-input-container">
+                <label for="player-name">Identifique-se:</label>
+                <input type="text" id="player-name" placeholder="Seu nome" maxlength="30" autocomplete="off">
+                <button id="start-btn" onclick="startGame()">INICIAR</button>
+            </div>
+
+            <div class="continue-container" id="continue-container" style="display:none;">
+                <button id="continue-btn" onclick="continueGame()">CONTINUAR JOGO SALVO</button>
+                <button id="newgame-btn" onclick="newGame()">NOVO JOGO</button>
+            </div>
+        </div>
+        <div class="footer-warning">
+            Este jogo contém temas sensíveis: violência, suicídio, drogas, morte.<br>
+            Recomendado para maiores de 16 anos.
+        </div>
+    </div>
+
+    <!-- TELA DE JOGO -->
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <div class="case-indicator" id="case-indicator">PRÓLOGO</div>
+            <div class="juiz-id" id="juiz-id">JUIZ #4891</div>
+        </div>
+
+        <div class="game-content">
+            <div class="text-container" id="text-container">
+                <div id="text-output"></div>
+                <span class="cursor-blink" id="cursor">█</span>
+            </div>
+
+            <div class="choices-container" id="choices-container">
+                <!-- Escolhas aparecem aqui -->
+            </div>
+        </div>
+
+        <div class="game-footer">
+            <button class="menu-btn" onclick="openMenu()">☰ MENU</button>
+            <div class="typing-indicator" id="typing-indicator">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENU OVERLAY -->
+    <div id="menu-overlay" class="overlay">
+        <div class="menu-panel">
+            <h2>MENU</h2>
+            <button onclick="saveGame()">💾 Salvar Jogo</button>
+            <button onclick="toggleSound()">🔊 Som: <span id="sound-status">ON</span></button>
+            <button onclick="showStats()">📊 Meu Perfil</button>
+            <button onclick="backToTitle()">🏠 Tela Inicial</button>
+            <button onclick="closeMenu()">✕ Fechar</button>
+        </div>
+    </div>
+
+    <!-- STATS OVERLAY -->
+    <div id="stats-overlay" class="overlay">
+        <div class="menu-panel stats-panel">
+            <h2>PERFIL DO JUIZ #4891</h2>
+            <div class="stat-bar">
+                <span>⚖️ Justiça</span>
+                <div class="bar"><div class="bar-fill" id="bar-justica"></div></div>
+                <span id="val-justica">0</span>
+            </div>
+            <div class="stat-bar">
+                <span>❤️ Compaixão</span>
+                <div class="bar"><div class="bar-fill" id="bar-compaixao"></div></div>
+                <span id="val-compaixao">0</span>
+            </div>
+            <div class="stat-bar">
+                <span>🔥 Punição</span>
+                <div class="bar"><div class="bar-fill" id="bar-punicao"></div></div>
+                <span id="val-punicao">0</span>
+            </div>
+            <div class="stat-bar">
+                <span>🎭 Pragmatismo</span>
+                <div class="bar"><div class="bar-fill" id="bar-pragmatismo"></div></div>
+                <span id="val-pragmatismo">0</span>
+            </div>
+            <div class="decisions-log" id="decisions-log"></div>
+            <button onclick="closeStats()">✕ Fechar</button>
+        </div>
+    </div>
+
+    <script src="engine.js"></script>
+    <script src="story.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
