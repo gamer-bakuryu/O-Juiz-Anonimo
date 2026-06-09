@@ -1,0 +1,692 @@
+/* ============================================
+   O JUIZ ANÔNIMO — VISUAL NOVEL
+   Design: Minimalista, Sombrio, Tribunal
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap');
+
+/* === RESET & BASE === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #0a0c10;
+    --bg-secondary: #12151c;
+    --bg-tertiary: #1a1e28;
+    --bg-card: #161a24;
+    --text-primary: #e0e4ec;
+    --text-secondary: #8892a4;
+    --text-muted: #4a5268;
+    --accent-blue: #2a5caa;
+    --accent-blue-light: #3d7dd4;
+    --accent-blue-glow: rgba(42, 92, 170, 0.3);
+    --accent-cyan: #4ecdc4;
+    --border-color: #252a36;
+    --border-light: #2f3545;
+    --danger: #e74c3c;
+    --warning: #f39c12;
+    --success: #27ae60;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+/* === SCREENS === */
+.screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* === TITLE SCREEN === */
+#title-screen {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    background-image: 
+        radial-gradient(ellipse at 50% 30%, rgba(42, 92, 170, 0.08) 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg-primary) 0%, #080a0e 100%);
+    animation: bgPulse 8s ease-in-out infinite;
+}
+
+@keyframes bgPulse {
+    0%, 100% { background-image: radial-gradient(ellipse at 50% 30%, rgba(42, 92, 170, 0.08) 0%, transparent 60%), linear-gradient(180deg, var(--bg-primary) 0%, #080a0e 100%); }
+    50% { background-image: radial-gradient(ellipse at 50% 30%, rgba(42, 92, 170, 0.15) 0%, transparent 60%), linear-gradient(180deg, var(--bg-primary) 0%, #080a0e 100%); }
+}
+
+.title-container {
+    text-align: center;
+    z-index: 2;
+}
+
+.title-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue-light);
+    font-size: 0.75rem;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.main-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    text-shadow: 0 0 60px var(--accent-blue-glow);
+}
+
+.subtitle {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.title-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent-blue);
+    margin: 0 auto 25px;
+}
+
+.tagline {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 40px;
+}
+
+/* Name Input */
+.name-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.name-input-container label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+#player-name {
+    width: 280px;
+    padding: 12px 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#player-name:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 20px var(--accent-blue-glow);
+}
+
+#player-name::placeholder {
+    color: var(--text-muted);
+}
+
+#start-btn, #continue-btn, #newgame-btn {
+    padding: 14px 40px;
+    background: transparent;
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue-light);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#start-btn:hover, #continue-btn:hover {
+    background: var(--accent-blue);
+    color: var(--text-primary);
+    box-shadow: 0 0 30px var(--accent-blue-glow);
+}
+
+#newgame-btn {
+    border-color: var(--text-muted);
+    color: var(--text-muted);
+}
+
+#newgame-btn:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.continue-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.footer-warning {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.6;
+    padding: 0 20px;
+}
+
+/* === GAME SCREEN === */
+#game-screen {
+    flex-direction: column;
+    background: var(--bg-primary);
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.case-indicator {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--accent-blue-light);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.juiz-id {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+}
+
+.game-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Text Container */
+.text-container {
+    flex: 1;
+    padding: 30px 25px;
+    overflow-y: auto;
+    line-height: 1.85;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-light) transparent;
+}
+
+.text-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.text-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.text-container::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+    border-radius: 2px;
+}
+
+#text-output {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+#text-output p {
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeInText 0.5s ease forwards;
+}
+
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#text-output .highlight {
+    color: var(--accent-blue-light);
+    font-weight: 500;
+}
+
+#text-output .system-msg {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    border-left: 2px solid var(--border-color);
+    padding-left: 12px;
+    margin: 15px 0;
+}
+
+#text-output .dossier {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    margin: 15px 0;
+    font-size: 0.85rem;
+}
+
+#text-output .dossier-header {
+    color: var(--accent-blue-light);
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+#text-output .separator {
+    text-align: center;
+    color: var(--text-muted);
+    margin: 20px 0;
+    letter-spacing: 8px;
+}
+
+#text-output .depoimento {
+    border-left: 2px solid var(--accent-cyan);
+    padding-left: 15px;
+    margin: 15px 0;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+#text-output .depoimento .speaker {
+    color: var(--accent-cyan);
+    font-style: normal;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#text-output .pausa {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin: 8px 0;
+}
+
+.cursor-blink {
+    display: none;
+    color: var(--accent-blue-light);
+    animation: blink 1s step-end infinite;
+    font-size: 0.9rem;
+}
+
+.cursor-blink.visible {
+    display: inline;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Choices */
+.choices-container {
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 25px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.choice-btn {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s;
+    line-height: 1.5;
+    opacity: 0;
+    animation: fadeInChoice 0.4s ease forwards;
+}
+
+.choice-btn:nth-child(1) { animation-delay: 0.1s; }
+.choice-btn:nth-child(2) { animation-delay: 0.2s; }
+.choice-btn:nth-child(3) { animation-delay: 0.3s; }
+.choice-btn:nth-child(4) { animation-delay: 0.4s; }
+.choice-btn:nth-child(5) { animation-delay: 0.5s; }
+.choice-btn:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInChoice {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.choice-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+    background: rgba(42, 92, 170, 0.1);
+    padding-left: 25px;
+}
+
+.choice-btn:active {
+    background: rgba(42, 92, 170, 0.2);
+}
+
+.choice-btn .choice-prefix {
+    color: var(--accent-blue-light);
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+/* Game Footer */
+.game-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.menu-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 6px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.menu-btn:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.typing-indicator {
+    display: none;
+    gap: 4px;
+}
+
+.typing-indicator.active {
+    display: flex;
+}
+
+.typing-indicator .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent-blue-light);
+    border-radius: 50%;
+    animation: typingDot 1.4s ease-in-out infinite;
+}
+
+.typing-indicator .dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator .dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingDot {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* === OVERLAYS === */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.menu-panel {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    min-width: 300px;
+    max-width: 90vw;
+    text-align: center;
+}
+
+.menu-panel h2 {
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    color: var(--accent-blue-light);
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.menu-panel button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.menu-panel button:hover {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+}
+
+/* Stats */
+.stats-panel {
+    max-width: 450px;
+    width: 90vw;
+}
+
+.stat-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 0.75rem;
+}
+
+.stat-bar > span:first-child {
+    width: 110px;
+    text-align: right;
+    color: var(--text-secondary);
+}
+
+.stat-bar > span:last-child {
+    width: 25px;
+    color: var(--accent-blue-light);
+    font-weight: 600;
+}
+
+.bar {
+    flex: 1;
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+}
+
+#bar-justica .bar-fill, #bar-justica { background: var(--accent-blue); }
+#bar-compaixao .bar-fill, #bar-compaixao { background: var(--danger); }
+#bar-punicao .bar-fill, #bar-punicao { background: var(--warning); }
+#bar-pragmatismo .bar-fill, #bar-pragmatismo { background: var(--accent-cyan); }
+
+.bar { background: var(--bg-tertiary) !important; }
+
+#bar-justica { background: var(--accent-blue) !important; }
+#bar-compaixao { background: #e74c3c !important; }
+#bar-punicao { background: #f39c12 !important; }
+#bar-pragmatismo { background: #4ecdc4 !important; }
+
+.decisions-log {
+    margin-top: 20px;
+    text-align: left;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    max-height: 200px;
+    overflow-y: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+}
+
+.decisions-log p {
+    margin-bottom: 5px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+/* === SPECIAL EFFECTS === */
+.screen-flash {
+    animation: screenFlash 0.5s ease;
+}
+
+@keyframes screenFlash {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+    100% { filter: brightness(1); }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Case transition */
+.case-transition {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+}
+
+.case-transition.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.case-transition h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 8px;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.case-transition p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 3.5rem;
+    }
+    
+    .text-container {
+        padding: 20px 15px;
+        font-size: 0.88rem;
+    }
+    
+    .choices-container {
+        padding: 0 15px 15px;
+    }
+    
+    .choice-btn {
+        padding: 12px 14px;
+        font-size: 0.8rem;
+    }
+    
+    #player-name {
+        width: 240px;
+    }
+    
+    .game-header {
+        padding: 12px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 2.8rem;
+    }
+    
+    .text-container {
+        font-size: 0.82rem;
+        line-height: 1.75;
+    }
+}
